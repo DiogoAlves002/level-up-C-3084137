@@ -3,39 +3,43 @@
 
 int main(){
 
-    char *initial_deck = "ABCDEFGHIJKLMNOPQRSTVUWXYZ";
-    char *shuffled_deck = initial_deck;
+    char *initial_deck = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    int deck_len = strlen(initial_deck);
-    int half_len = deck_len / 2;
+    size_t deck_len = strlen(initial_deck);
+    size_t half_len = deck_len / 2;
 
-    printf("Original deck: %s\n", initial_deck);
+    char shuffled_deck[deck_len];
+    strcpy(shuffled_deck, initial_deck); 
+
+
+    printf("Original deck: %s len %ld\n", initial_deck, deck_len);
 
     
     char temp[deck_len];
-    temp[0] = initial_deck[0];
-    temp[deck_len - 1] = initial_deck[deck_len - 1];
+
 
 
     int it = 0;
-    while ( it == 0 || shuffled_deck != initial_deck){
+    while ( it == 0 || strcmp(shuffled_deck, initial_deck)  != 0 ){
         it++;
 
-        int e = 1;
-        for (int i = 1; i < half_len - 1; i ++){
-            temp[e] = shuffled_deck[half_len + i - 1];
-            temp[e + 1] = shuffled_deck[i];
-            e += 2;
+            
+        int shuffled_idx = 0;
+        for (int initial_idx = 0; initial_idx < half_len; initial_idx++){
+            
+            temp[shuffled_idx] = shuffled_deck[initial_idx];
+            temp[shuffled_idx + 1] = shuffled_deck[half_len + initial_idx];
+            shuffled_idx += 2;
         }
 
-        shuffled_deck = temp;
+        strncpy(shuffled_deck, temp, deck_len); 
 
-        printf("%d: %s\n", it, shuffled_deck);
-
+        printf("%2d: %s\n", it, shuffled_deck);
 
 
         // debug
-        if (it == 30){
+        if (it == 50){
+            printf("NOT FOUND\n");
             break;
         }
     }
