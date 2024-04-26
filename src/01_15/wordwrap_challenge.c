@@ -30,12 +30,13 @@ void printWrap(char *text, int width){
 
 			
 			if (line_size + word_size - 1 > width ){
+
 				printf("\n");
 				line_size = 0;
 			}
 
 			if (word[word_size - 1] == '\n'){
-				line_size = 0;
+				line_size = - word_size;
 			}
 
 			printf("%s", word);
@@ -48,7 +49,7 @@ void printWrap(char *text, int width){
 		
 		text_ptr++;
 	} 
-	printf("\n");
+	printf("%s\n", word); // print the last word
 	free(word);
 }
 
